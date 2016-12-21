@@ -11,7 +11,10 @@ import com.example.personal.greendaotest.base.ViewHolder;
 import com.example.personal.greendaotest.entity.User;
 import com.example.personal.greendaotest.gen.UserDao;
 import com.example.personal.greendaotest.manager.GreenDaoManager;
+import com.example.personal.greendaotest.utils.ExcelUtil;
+import com.example.personal.greendaotest.utils.FileUtil;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -49,17 +52,12 @@ public class MainActivity extends BaseActivity {
     public void initData() {
         userDao = GreenDaoManager.getmInstance().getmDaoSession().getUserDao();
         userDao.deleteAll();
-        userDao.insert(new User(1, "周一", 24, "1382382334"));
-        userDao.insert(new User(4, "周四", 24, "1382382334"));
-        userDao.insert(new User(2, "周二", 24, "1382382334"));
-        userDao.insert(new User(3, "周三", 24, "1382382334"));
-        userDao.insert(new User(5, "周五", 24, "1382382334"));
+        userDao.insert(new User(null, "周一", 24, "1382382334"));
+        userDao.insert(new User(null, "周四", 24, "1382382334"));
+        userDao.insert(new User(null, "周二", 24, "1382382334"));
+        userDao.insert(new User(null, "周三", 24, "1382382334"));
+        userDao.insert(new User(null, "周五", 24, "1382382334"));
 
-//        userDao.insert(new User());
-//        userDao.insert(new User());
-//        userDao.insert(new User());
-//        userDao.insert(new User());
-//        userDao.insert(new User());
         users = userDao.queryBuilder().list();
         lv_user.setAdapter(new BasicAdapter<User>(MainActivity.this, users, R.layout.item_user) {
             @Override
@@ -68,6 +66,19 @@ public class MainActivity extends BaseActivity {
                         item.getName() + "***" + item.getAge() + "***" + item.getPhone());
             }
         });
+        saveAsExcel();
+    }
+
+    private void saveAsExcel(){
+        File file = new File(FileUtil.EXCEL,"user.xls");
+        String[] title = new String[]{
+                "ID",
+                "名字",
+                "年龄",
+                "电话"
+        };
+        ExcelUtil.initExcel(file.getAbsolutePath(),title);
+        ExcelUtil.writeUserToExcel(users,file.getAbsolutePath(),this);
     }
 
     @Override
