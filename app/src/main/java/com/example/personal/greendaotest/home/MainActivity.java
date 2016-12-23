@@ -1,10 +1,8 @@
-package com.example.personal.greendaotest;
+package com.example.personal.greendaotest.home;
 
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.widget.BaseAdapter;
 import android.widget.ListView;
 
+import com.example.personal.greendaotest.R;
 import com.example.personal.greendaotest.base.BaseActivity;
 import com.example.personal.greendaotest.base.BasicAdapter;
 import com.example.personal.greendaotest.base.ViewHolder;
@@ -15,7 +13,6 @@ import com.example.personal.greendaotest.utils.ExcelUtil;
 import com.example.personal.greendaotest.utils.FileUtil;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
